@@ -14,5 +14,4 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     email =  forms.EmailField()
     password = forms.CharField(max_length=32,widget=forms.PasswordInput())
-    DateF = forms.DateField(widget=forms.DateInput(),required=False)
     
