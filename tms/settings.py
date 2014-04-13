@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '(%d1#@!$p6s399$hevmlq58dhea0tkvx%=2=8-*w-pzqhy73de'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False 
 
 TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,"template"),)
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
