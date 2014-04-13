@@ -6,7 +6,7 @@
 		<h4><strong>{{ i.name }}</strong></h4><br>
 {% for j in tasks %}
 {% ifequal j.Lis.name i.name %}
-{{ j.name }}<br>
+{{ j.name }} - {{ j.assignedto.first_name }}<br>
 {% endifequal %}
 {% endfor %}
 
