@@ -58,6 +58,12 @@ def addtask(request):
 	if request.method=="POST":
 		name = request.POST['name']
 		lis = request.POST['listname']
+		c = request.POST['assignto']
+		c = TMSUser.objects.filter(username=c)
+		if c:
+			c = c[0]
+		else:
+			c=None
 		l = List.objects.filter(lid=lis)
 		if not l:
 			return HttpResponseRedirect('/lists/'+u.team.name.lower())
@@ -68,6 +74,7 @@ def addtask(request):
 				name=name,
 				creator = u,
 				Lis = l,
+				assignedto=c,
 				)
 		t.save()
 		x = u.team.name
