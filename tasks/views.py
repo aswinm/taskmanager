@@ -49,7 +49,7 @@ def displaylist(request,teamname):
 		editable=True
 	else:
 		editable=False
-	assigns = TMSUser.objects.filter(team__name=teamname)
+	assigns = TMSUser.objects.filter(team__name__icontains=teamname)
 	return render(request,'lists.html',{'lists':lists,'tasks':q,'editable':editable,'assigns':assigns})
 
 @login_required(login_url='/login')
