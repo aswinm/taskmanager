@@ -1,0 +1,10 @@
+{% include "htmltop.html" %}
+{% if not  user.is_authenticated %}
+ Welcome to the Task Manager
+{% else %}
+Welcome {{ user.first_name }}<br>
+Teams:<br>
+<a href="/lists/web">Web</a>
+{% endif %}
+{% include "htmlbottom.html" %}
+

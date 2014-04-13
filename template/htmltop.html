@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+
+
+		<script type="text/javascript">
+			function passcheck() {
+				var x = document.forms["registerform"]["password"].value;
+				var y = document.forms["registerform"]["confpassword"].value;
+				if(x!==y)
+				{
+					alert('Passwords do not match');
+					return false;
+				}
+					return true;
+			}
+			window.onload = function(){
+				var t="{{ text }}";
+				if(t)
+					alert(t);
+				
+			}
+		</script>
+	<title>LIBRARY</title>
+	<body >
+		<div class="row">
+			<div class="col-lg-6">
+				<h1>Library Manager</h1>
+			</div>
+			<div class="col-lg-6">
+				<div class="col-lg-6"></div>
+				<div class="col-lg-6">
+
+
+					
+		</div>
+	</div>
+</div>
+
+		<ul class="nav nav-tabs" >
+			
+
+			{% if user.is_authenticated %}
+			<li ><a href="/">Home</a></li>
+			<li><a href="/mytasks">My Tasks</a></li>
+			<li><a href="/notifications">Notifications</a></li>
+			<li><a href="/Logout">Logout</a></li>
+
+			{% else %}
+			<li><a href="/register">Register</a></li>
+			<li><a href="/login">Login</a></li>
+			{% endif %}
+		</ul>

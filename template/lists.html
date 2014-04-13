@@ -1,0 +1,37 @@
+{% include "htmltop.html" %}
+<div class="row">
+{% for i in lists %}
+<div class="col-lg-2" >
+	<div class="wrap-cont">
+		<h4><strong>{{ i.name }}</strong></h4><br>
+{% for j in tasks %}
+{% ifequal j.Lis.name i.name %}
+{{ j.name }}<br>
+{% endifequal %}
+{% endfor %}
+
+{% if editable %}
+
+<form action='/addtask' method='post'>
+	{% csrf_token %}
+	<input type="hidden" name="listname" value="{{ i.lid }}">
+	<input type="text" name="name" placeholder="Add Task">
+	Assign to:<select name="assignto">
+	<option value="">-----</option>
+	{% for i in assigns %}
+	<option value="{{ i.username }}">{{ i.first_name }}</option>
+	{% endfor %}
+	</select>
+</form>
+{% endif %}
+</div></div>
+{% endfor %}
+</div>
+<br><br>
+{% if editable %}
+<form action='/addlist' method='post'>
+	{% csrf_token %}
+	<input type="text" name="name" placeholder="AddList">
+</form>
+{% endif %}
+{% include "htmlbottom.html" %}

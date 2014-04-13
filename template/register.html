@@ -1,0 +1,10 @@
+{% include "htmltop.html" %}
+{% if text %}
+{{ text }}
+{% endif %}
+<form action="{{ url }}" method="post">
+	{% csrf_token %}
+	{{ form.as_p}}
+	<input type="submit" value="{{ sub }}">
+</form>
+{% include "htmlbottom.html" %}
