@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from tasks.models import List,Task
+from tasks.models import List,Task,Notification
 from django.contrib.auth.decorators import login_required
 from tasks.forms import AddListForm
 from users.models import TMSUser,Team
@@ -77,6 +77,15 @@ def addtask(request):
 				assignedto=c,
 				)
 		t.save()
+		content = u.username+" Assigned you a task: "+ t.name
+		url="/lists/"+u.team.name.lower()
+		n = Notification.objects.create(
+				content = content,
+				url=ur,
+				notify = c,
+				)
+		n.save()
+
 		x = u.team.name
 		x = x.lower()
 		return HttpResponseRedirect('/lists/'+x)
@@ -88,7 +97,46 @@ def mytasks(request):
 	u = TMSUser.objects.get(username=request.user.username)
 	return HttpResponseRedirect('/lists/'+u.team.name.lower())
 
+@login_required(login_url='/login')
+def deletetask(request,tid):
+	t = Task.objects.filter(tid=tid)
+	u = TMSUser.objects.get(username=request.user.username)
+	if not t:
+		return HttpResponseRedirect('/lists/'+u.team.name.lower())
+	t = t[0]
+	if t.creator.username != u.username:
+		return HttpResponseRedirect('/lists/'+u.team.name.lower())
+	t.delete()
+	return HttpResponseRedirect('/lists/'+u.team.name.lower())
 
+@login_required(login_url='/login')
+def completetask(request,tid):
+	t = Task.objects.filter(tid=tid)
+	u = TMSUser.objects.get(username=request.user.username)
+	if not t:
+		return HttpResponseRedirect('/lists/'+u.team.name.lower())
+	t = t[0]
+	if t.assignedto.username != u.username:
+		return HttpResponseRedirect('/lists/'+u.team.name.lower())
+	t.isCompleted = True
+	t.save()
+	content = u.username + " Completed your task: " + t.name
+	url= '/lists/' + u.team.name.lower()
+	n = Notification.objects.create(
+			content=content,
+			url=url,
+			notify=t.creator
+			)
+	n.save()
+	return HttpResponseRedirect('/lists/'+u.team.name.lower())
+	
+@login_required(login_url='/login')
+def notifications(request):
+	u = TMSUser.objects.filter(username=request.user.username)
+	n = Notification.objects.filter(notify=u).order_by('-nid')
+	return render(request,'notifications.html',{'n':n})
+
+		
 		
 		
 

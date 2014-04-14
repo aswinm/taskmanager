@@ -1,0 +1,11 @@
+{% include "htmltop.html" %}
+<div class="row">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-6">
+		{% for i in n %}
+		<a href="{{ i.url }}">{{ i.content }}</a><br>
+		{% endfor %}
+	</div>
+</div>
+{% include "htmlbottom.html" %}

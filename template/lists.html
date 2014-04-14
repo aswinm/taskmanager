@@ -4,12 +4,16 @@
 <div class="col-lg-2" >
 	<div class="wrap-cont">
 		<h4><strong>{{ i.name }}</strong></h4><br>
+<div class="items">
 {% for j in tasks %}
-{% ifequal j.Lis.name i.name %}
-{{ j.name }} - <p color="white">{{ j.assignedto.first_name }}</p><br>
+	{% ifequal j.Lis.name i.name %}
+<div class="item">
+	
+	<div class="inner"><div class="hello">{{ j.name }} - <font color="blue">{{ j.assignedto.first_name }}</font></div><br>{% if not j.isCompleted %}{% ifequal j.creator.username user.username %}<a href="/deletetask/{{ j.tid }}/">Delete</a>{% endifequal %}<br>{% ifequal j.assignedto.username user.username %}<a href="/completetask/{{ j.tid }}">Completed</a>{% endifequal %}{% endif %}</div>
+</div>
 {% endifequal %}
 {% endfor %}
-
+</div>
 {% if editable %}
 
 <form action='/addtask' method='post'>
